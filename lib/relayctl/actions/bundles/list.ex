@@ -3,7 +3,7 @@ defmodule Relayctl.Actions.Bundles.List do
   Lists all the bundles currently being run on this Relay.
   """
 
-  use Relayctl.Action, "bundle list"
+  use Relayctl.Action, "bundles list"
   require Relayctl.Connect
   alias Relayctl.Connect
 
@@ -13,8 +13,8 @@ defmodule Relayctl.Actions.Bundles.List do
     case Connect.do_on_relay(Relay.Bundle.Catalog, :list_bundles, []) do
       bundles when is_list(bundles) ->
         bundles |> Enum.sort |> Enum.each(&IO.puts/1)
-      _error ->
-        :error
+      error ->
+        error
     end
   end
 

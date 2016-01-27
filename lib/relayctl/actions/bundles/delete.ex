@@ -3,23 +3,18 @@ defmodule Relayctl.Actions.Bundles.Delete do
   Deletes a bundle from the Relay.
   """
 
-  use Relayctl.Action, "bundle delete"
-  require Logger
+  use Relayctl.Action, "bundles delete"
   require Relayctl.Connect
   alias Relayctl.Connect
 
-  def option_spec, do: []
+  def option_spec, do: [
+    {:bundle, :undefined, :undefined, :string, 'Name of bundle to delete (required)'},
+  ]
 
-  def run(_options, [bundle_name]) do
-    case Connect.do_on_relay(Relay.Bundle.InstallHelpers, :deactivate, [bundle_name]) do
-      :ok ->
-        :ok
-      error ->
-        error
-    end
-  end
-  def run(_, _) do
-    IO.puts(:stderr, "Invoke as `relayctl bundle delete <bundle_name>`")
-    {:error, :invalid_invocation}
+  def run([{:bundle, bundle_name}], _),
+    do: Connect.do_on_relay(Relay.Bundle.InstallHelpers, :deactivate, [bundle_name])
+  def run(_options, _args) do
+    IO.puts(:stderr, "Error: missing required argument")
+    :error
   end
 end
