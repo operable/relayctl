@@ -1,20 +1,35 @@
 # Relayctl
 
-**TODO: Add description**
+CLI tool for interacting with [Relay](https://github.com/operable/relay) instances.
 
-## Installation
+## Building
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+Use [mix](http://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html), Elixir's build tool, to generate a `relayctl` executable in the current directory.
 
-  1. Add relayctl to your list of dependencies in `mix.exs`:
+```sh
+mix escript
+```
 
-        def deps do
-          [{:relayctl, "~> 0.0.1"}]
-        end
+## Running `relayctl`
 
-  2. Ensure relayctl is started before your application:
+Note that `relayctl` must be run on the same host on which the Relay instance you're interacting with is running.
 
-        def application do
-          [applications: [:relayctl]]
-        end
+`relayctl` has subcommands that carry out its actions. To find out all the subcommands that are available, run
 
+```sh
+relayctl --help
+```
+
+### `bundles list` Command
+
+List all bundles currently being served by the Relay.
+```sh
+relayctl bundles list
+```
+### `bundles delete` Command
+
+Delete the named bundle from the Relay. It does not affect other Relay instances that may be running the same bundle, nor does it delete the bundle or any custom rules associated with it from the Cog bot. It simply stops _this_ Relay from serving it anymore.
+
+```sh
+relayctl bundles delete $BUNDLE_NAME
+```
