@@ -33,3 +33,7 @@ Delete the named bundle from the Relay. It does not affect other Relay instances
 ```sh
 relayctl bundles delete $BUNDLE_NAME
 ```
+
+## Filing issues
+
+relayctl issues are tracked centrally in [Cog's](https://github.com/operable/cog/issues) issue tracker.
